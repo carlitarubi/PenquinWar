@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
     [SerializeField] bool isFacingRight;
     public bool playerWithRock;
-
+    public NestInteraction homeNest;
 
     private void Start()
     {
@@ -26,7 +26,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-
         playerRb.velocity = new Vector2(moveInput.x * speed, moveInput.y * speed);
 
 
@@ -38,13 +37,33 @@ public class PlayerController : MonoBehaviour
         {
             Flip();
         }
+        // Comprobación de la entrada para colocar una piedra
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            TryPlaceRock();
+        }
     }
 
-    //private void FixedUpdate()
-    //{
+    private void TryPlaceRock()
+    {
+        // Verificar si el jugador tiene una piedra y si su nido no está lleno
+        if (playerWithRock && homeNest.activeRocks < homeNest.maxRocks)
+        {
+            homeNest.rockPrefabs[homeNest.activeRocks].SetActive(true); // Activar una piedra en su nido
+            homeNest.activeRocks++; // Incrementar las piedras activas en el nido del jugador
+            playerWithRock = false; // El jugador ya no tiene la piedra
+        }
+        // Verificar si el jugador no tiene piedra para quitar una roca de su nido
+        else if (!playerWithRock && homeNest.activeRocks > 0)
+        {
+            homeNest.activeRocks--; // Reducir el número de piedras activas en su nido
+            homeNest.rockPrefabs[homeNest.activeRocks].SetActive(false); // Desactivar la última piedra en su nido
+            playerWithRock = true; // El jugador ahora tiene la piedra
+        }
+    }
+    
 
-        
-    //}
+    
 
     void Flip()
     {

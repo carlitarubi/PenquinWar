@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class NestInteraction : MonoBehaviour
 {
-    public GameObject[] rockPrefabs; // Arreglo de las 8 piedras (4 visibles, 4 invisibles)
-    public int maxRocks = 8; // Número máximo de piedras (8)
-    public int activeRocks = 4; // Al principio hay 4 piedras visibles
+    public GameObject[] rockPrefabs; // Array de piedras
+    public int maxRocks = 8;
+    public int activeRocks = 4; 
     private bool playerNear = false; // Para saber si el jugador está cerca
 
     void Start()
@@ -21,26 +21,32 @@ public class NestInteraction : MonoBehaviour
 
     void Update()
     {
-        // Si el jugador está cerca y presiona la tecla Mayus (Shift)
         if (playerNear && Input.GetKeyDown(KeyCode.LeftShift))
         {
-            GameObject player = GameObject.FindWithTag("Player");
-            if (player != null)
-            {
-                // Verificar si el jugador tiene la piedra (playerWithRock es true)
-                var playerScript = player.GetComponent<PlayerController>();
-                if (playerScript != null && playerScript.playerWithRock)
-                {
-                    // Si hay piedras por colocar
-                    if (activeRocks < maxRocks)
-                    {
-                        rockPrefabs[activeRocks].SetActive(true); // Activar una piedra invisible
-                        activeRocks++;
-                    }
-                }
-            }
+            TryPlaceRock();
         }
     }
+
+    private void TryPlaceRock()
+    {
+        var player = GameObject.FindWithTag("Player")?.GetComponent<PlayerController>();
+
+        // Verificar si el jugador tiene una piedra y si el nido no está lleno
+        if (player != null && player.playerWithRock && activeRocks < maxRocks)
+        {
+            rockPrefabs[activeRocks].SetActive(true); // Activar una piedra invisible
+            activeRocks++;
+            player.playerWithRock = false; // El jugador ya no tiene la piedra después de ponerla
+        }
+        // Verificar si el jugador no tiene piedra para quitar una roca
+        else if (player != null && !player.playerWithRock && activeRocks > 0)
+        {
+            activeRocks--; // Reducir el número de piedras activas
+            rockPrefabs[activeRocks].SetActive(false); // Desactivar la última piedra
+            player.playerWithRock = true; // El jugador ahora tiene la piedra
+        }
+    }
+
 
     // Detectar si el jugador está cerca del nido
     private void OnTriggerEnter2D(Collider2D other)
