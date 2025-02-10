@@ -10,16 +10,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Animator playerAnim; // Referencia al animator para gestionar las transiciones de animación
 
     [Header("Movement Parameters")]
-    private Vector3 moveInput; //Almacén del input del player
+    private Vector2 moveInput; //Almacén del input del player
     public float speed;
     [SerializeField] bool isFacingRight;
+    public bool playerWithRock;
 
-    [Header("GroundCheck Parameters")]
-    
-    [SerializeField] bool isGrounded;
-    [SerializeField] Transform groundCheck;
-    [SerializeField] float groundCheckRadius = 0.1f;
-    [SerializeField] LayerMask groundLayer;
+
     private void Start()
     {
         playerRb = GetComponent<Rigidbody2D>();
@@ -27,12 +23,12 @@ public class PlayerController : MonoBehaviour
         playerAnim = GetComponent<Animator>();
         isFacingRight = true;
     }
-    
+
     void Update()
     {
 
+        playerRb.velocity = new Vector2(moveInput.x * speed, moveInput.y * speed);
 
-        
 
         if (moveInput.x > 0 && !isFacingRight)
         {
@@ -44,25 +40,34 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
-    {
+    //private void FixedUpdate()
+    //{
+
         
-        playerRb.velocity = new Vector2(moveInput.x * speed, moveInput.y * speed);
-    }
+    //}
 
     void Flip()
     {
         Vector2 currentScale = transform.localScale;
         currentScale.x *= -1;
         transform.localScale = currentScale;
-        isFacingRight = !isFacingRight; 
+        isFacingRight = !isFacingRight;
     }
-   
+
 
     public void HandleMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
     }
 
-   
+    public void CollectRock()
+    {
+        playerWithRock = true; // El jugador recoge una piedra
+    }
+
+    // Lógica para soltar la piedra (esto puede estar en otro sistema si lo deseas)
+    public void DropRock()
+    {
+        playerWithRock = false; // El jugador suelta la piedra
+    }
 }
