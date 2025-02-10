@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - Nest
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -47,6 +49,9 @@ TagManager:
     locked: 0
   - name: Interaction
     uniqueID: 2146439049
+    locked: 0
+  - name: Midel
+    uniqueID: 1911839255
     locked: 0
   - name: FirstPlan
     uniqueID: 2841770793
