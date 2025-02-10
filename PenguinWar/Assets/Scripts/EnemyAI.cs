@@ -1,96 +1,116 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    public float moveSpeed = 3f;
-    public bool hasRock = false; // Indica si el enemigo tiene una piedra
-    private Vector3 targetPosition; // La posición de destino a la que el enemigo se mueve
-    private NestInteraction currentNest; // Referencia al nido al que el enemigo se dirige
+    public NestInteraction[] nests;
+    public NestInteraction homeNest;
+    public float moveSpeed = 2f;
+    public float waitTimeAfterStealing = 2f;
 
-    private bool isMovingBackToNest = false; // Indicador de si el enemigo está regresando al nido
-    private bool isWaiting = false; // Para evitar que el enemigo se mueva sin parar
+    private NestInteraction targetNest;
+    private float stateTimer;
+    private bool hasRock = false; // Indica si el enemigo lleva una piedra
+    private EnemyState currentState = EnemyState.Idle;
 
-    private void Start()
+    private enum EnemyState
     {
-        // Asignar el primer nido de manera aleatoria
-        currentNest = FindObjectsOfType<NestInteraction>()[Random.Range(0, 5)];
-        targetPosition = currentNest.transform.position;
+        Idle,
+        MovingToNest,
+        StealingRock,
+        ReturningHome,
+        Waiting
     }
 
-    private void Update()
+    void Start()
     {
-        // Verificar si el enemigo tiene una piedra o está en su nido
-        if (hasRock)
-        {
-            // Si tiene una piedra, debe regresar a su nido
-            if (Vector3.Distance(transform.position, currentNest.transform.position) < 0.5f)
-            {
-                ReturnRock(); // Devolver la piedra al nido
-            }
-            else
-            {
-                // Moverse hacia el nido de manera directa si tiene una piedra
-                MoveToTarget();
-            }
-        }
-        else
-        {
-            // Si no tiene una piedra, moverse aleatoriamente entre los nidos
-            if (Vector3.Distance(transform.position, targetPosition) < 0.5f)
-            {
-                // Si llega al nido, intentar robar una piedra
-                TryToStealRock();
-                StartCoroutine(RandomMovement()); // Empezar a moverse a otro nido
-            }
-            else
-            {
-                MoveToTarget(); // Continuar moviéndose hacia el objetivo (nido aleatorio)
-            }
-        }
+        SetState(EnemyState.Idle);
     }
 
-    // Mover al enemigo hacia su objetivo
-    void MoveToTarget()
+    void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-    }
-
-    // Intentar robar una piedra si está en un nido
-    void TryToStealRock()
-    {
-        if (currentNest.activeRocks > 0)
+        switch (currentState)
         {
-            hasRock = true; // El enemigo ha robado una piedra
-            currentNest.activeRocks--; // Reducir las piedras activas del nido
-            Debug.Log("Enemigo robó una piedra");
+            case EnemyState.Idle:
+                ChooseRandomNest();
+                break;
+
+            case EnemyState.MovingToNest:
+                MoveToTarget(targetNest.transform.position, EnemyState.StealingRock);
+                break;
+
+            case EnemyState.StealingRock:
+                StealRock();
+                break;
+
+            case EnemyState.ReturningHome:
+                MoveToTarget(homeNest.transform.position, EnemyState.Waiting);
+                break;
+
+            case EnemyState.Waiting:
+                stateTimer -= Time.deltaTime;
+                if (stateTimer <= 0f)
+                {
+                    SetState(EnemyState.Idle);
+                }
+                break;
         }
     }
 
-    // Función que devuelve la piedra al nido
-    void ReturnRock()
+    private void SetState(EnemyState newState)
     {
-        currentNest.activeRocks++; // Aumenta las piedras del nido
-        hasRock = false; // El enemigo ya no tiene la piedra
-        Debug.Log("Enemigo ha devuelto la piedra al nido");
-        StartCoroutine(RandomMovement()); // Después de devolver la piedra, empezar a moverse aleatoriamente
+        currentState = newState;
+        if (newState == EnemyState.Waiting)
+        {
+            stateTimer = waitTimeAfterStealing;
+            if (hasRock)
+            {
+                AddRockToHomeNest(); // Añadir piedra al nido propio si lleva una
+                hasRock = false; // Vaciar la piedra del enemigo
+            }
+        }
     }
 
-    // Mover al enemigo aleatoriamente entre los nidos
-    IEnumerator RandomMovement()
+    private void ChooseRandomNest()
     {
-        // Esperamos un poco para simular un tiempo de espera
-        yield return new WaitForSeconds(1f);
+        if (nests.Length == 0) return;
 
-        // Elegimos un nido aleatorio de los disponibles
-        NestInteraction[] nests = FindObjectsOfType<NestInteraction>();
-        currentNest = nests[Random.Range(0, nests.Length)];
+        do
+        {
+            targetNest = nests[Random.Range(0, nests.Length)];
+        } while (targetNest == homeNest);
 
-        // Establecemos el nuevo destino
-        targetPosition = currentNest.transform.position;
+        SetState(EnemyState.MovingToNest);
+    }
 
-        // Esperamos antes de que el enemigo comience a moverse
-        isWaiting = false;
+    private void MoveToTarget(Vector3 destination, EnemyState nextState)
+    {
+        transform.position = Vector3.MoveTowards(transform.position, destination, moveSpeed * Time.deltaTime);
+
+        if (Vector3.Distance(transform.position, destination) < 0.1f)
+        {
+            SetState(nextState);
+        }
+    }
+
+    private void StealRock()
+    {
+        if (targetNest.activeRocks > 0)
+        {
+            targetNest.EnemyDestroysRock();
+            Debug.Log($"{gameObject.name} robó una piedra del nido {targetNest.name}");
+            hasRock = true; // Indicar que el enemigo lleva una piedra
+        }
+
+        SetState(EnemyState.ReturningHome);
+    }
+
+    private void AddRockToHomeNest()
+    {
+        if (homeNest.activeRocks < homeNest.maxRocks)
+        {
+            homeNest.rockPrefabs[homeNest.activeRocks].SetActive(true);
+            homeNest.activeRocks++;
+            Debug.Log($"{gameObject.name} añadió una piedra a su nido {homeNest.name}");
+        }
     }
 }
