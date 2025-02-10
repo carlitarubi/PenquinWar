@@ -2764,7 +2764,8 @@ MonoBehaviour:
   playerAnim: {fileID: 0}
   speed: 5
   isFacingRight: 0
-  playerWithRock: 1
+  playerWithRock: 0
+  homeNest: {fileID: 941628648}
 --- !u!114 &975757419
 MonoBehaviour:
   m_ObjectHideFlags: 0
