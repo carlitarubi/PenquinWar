@@ -6,7 +6,7 @@ public class NestInteraction : MonoBehaviour
 {
     public GameObject[] rockPrefabs; // Arreglo de las 8 piedras (4 visibles, 4 invisibles)
     public int maxRocks = 8; // Número máximo de piedras (8)
-    private int activeRocks = 4; // Al principio hay 4 piedras visibles
+    public int activeRocks = 4; // Al principio hay 4 piedras visibles
     private bool playerNear = false; // Para saber si el jugador está cerca
 
     void Start()
