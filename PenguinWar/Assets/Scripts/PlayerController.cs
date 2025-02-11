@@ -38,29 +38,29 @@ public class PlayerController : MonoBehaviour
             Flip();
         }
         
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            TryPlaceRock();
-        }
+        //if (Input.GetKeyDown(KeyCode.LeftShift))
+        //{
+         //   TryPlaceRock();
+       // }
     }
 
-    private void TryPlaceRock()
-    {
+    //private void TryPlaceRock()
+    //{
 
-        if (playerWithRock && homeNest.activeRocks < homeNest.maxRocks)
-        {
-            homeNest.rockPrefabs[homeNest.activeRocks].SetActive(true);
-            homeNest.activeRocks++;
-            playerWithRock = false;
-        }
+    //    if (playerWithRock && homeNest.activeRocks < homeNest.maxRocks)
+    //    {
+      //      homeNest.rockPrefabs[homeNest.activeRocks].SetActive(true);
+        //    homeNest.activeRocks++;
+          //  playerWithRock = false;
+        //}
 
-        else if (!playerWithRock && homeNest.activeRocks > 0)
-        {
-            homeNest.activeRocks--;
-            homeNest.rockPrefabs[homeNest.activeRocks].SetActive(false);
-            playerWithRock = true;
-        }
-    }
+        //else if (!playerWithRock && homeNest.activeRocks > 0)
+        //{
+          //  homeNest.activeRocks--;
+            //homeNest.rockPrefabs[homeNest.activeRocks].SetActive(false);
+            //playerWithRock = true;
+       // }
+   // }
     
 
     

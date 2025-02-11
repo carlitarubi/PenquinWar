@@ -417,9 +417,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.04231706, y: -0.056575183}
+  m_Offset: {x: 0.006034437, y: -0.05427601}
   serializedVersion: 2
-  m_Radius: 0.82102185
+  m_Radius: 1.1586084
 --- !u!114 &148675620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,6 +444,7 @@ MonoBehaviour:
   maxRocks: 8
   activeRocks: 4
   isPlayerNest: 0
+  activeNest: 0
 --- !u!1 &208248941
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,9 +740,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.059841532, y: -0.10529829}
+  m_Offset: {x: -0.032538857, y: 0.057255987}
   serializedVersion: 2
-  m_Radius: 0.8311144
+  m_Radius: 1.1427326
 --- !u!114 &306939083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -766,6 +767,7 @@ MonoBehaviour:
   maxRocks: 8
   activeRocks: 4
   isPlayerNest: 0
+  activeNest: 0
 --- !u!1 &312221007
 GameObject:
   m_ObjectHideFlags: 0
@@ -2065,6 +2067,7 @@ MonoBehaviour:
   maxRocks: 8
   activeRocks: 4
   isPlayerNest: 0
+  activeNest: 0
 --- !u!58 &840902082
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2097,9 +2100,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.006585275, y: -0.0077526313}
+  m_Offset: {x: -0.049814496, y: 0.08669758}
   serializedVersion: 2
-  m_Radius: 0.8645473
+  m_Radius: 1.1034546
 --- !u!1 &852645342
 GameObject:
   m_ObjectHideFlags: 0
@@ -2621,9 +2624,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.030278431, y: 0.010092811}
+  m_Offset: {x: 0.00283809, y: 0.010092881}
   serializedVersion: 2
-  m_Radius: 0.8513002
+  m_Radius: 1.4412707
 --- !u!114 &941628648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2648,6 +2651,7 @@ MonoBehaviour:
   maxRocks: 8
   activeRocks: 4
   isPlayerNest: 1
+  activeNest: 0
 --- !u!1 &972001059
 GameObject:
   m_ObjectHideFlags: 0
@@ -4361,9 +4365,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.04714523, y: 0.01800032}
+  m_Offset: {x: 0.002694668, y: 0.032607872}
   serializedVersion: 2
-  m_Radius: 0.9017648
+  m_Radius: 1.2237705
 --- !u!114 &1765368797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4388,6 +4392,7 @@ MonoBehaviour:
   maxRocks: 8
   activeRocks: 4
   isPlayerNest: 0
+  activeNest: 0
 --- !u!1 &1768159479
 GameObject:
   m_ObjectHideFlags: 0

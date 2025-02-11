@@ -8,7 +8,7 @@ public class NestInteraction : MonoBehaviour
     public int maxRocks = 8;
     public int activeRocks = 4;
     private bool playerNearEnemyNest = false; 
-    private bool playerNearPlayerNest = false; 
+    private bool playerNearNest = false; 
     public bool isPlayerNest = false;
     public bool activeNest = false;
 
@@ -28,10 +28,24 @@ public class NestInteraction : MonoBehaviour
 
     void Update()
     {
-        
+        //if (playerNearNest && Input.GetKeyDown(KeyCode.LeftShift))
+        //{
+          //  TakeRock();
+        //}
     }
 
-    private void TakeRock(PlayerController player)
+    private void HandleRockInteraction()
+    {
+        if (!isPlayerNest && !player.playerWithRock)
+        {
+            TakeRock();
+        }
+        else if (isPlayerNest && player.playerWithRock)
+        {
+            PlaceRock();
+        }
+    }
+    private void TakeRock()
     {
         
         if (activeRocks > 0 && !player.playerWithRock) 
@@ -44,9 +58,9 @@ public class NestInteraction : MonoBehaviour
        
     }
 
-    private void PlaceRock(PlayerController player)
+    private void PlaceRock()
     {
-        if (activeRocks < maxRocks && player.playerWithRock && playerNearPlayerNest) 
+        if (activeRocks < maxRocks && player.playerWithRock) 
         {
             rockPrefabs[activeRocks].SetActive(true);
             activeRocks++;
@@ -79,11 +93,11 @@ public class NestInteraction : MonoBehaviour
             {
                 if (!isPlayerNest && !player.playerWithRock)
                 {
-                    TakeRock(player);
+                    TakeRock();
                 }
                 if (isPlayerNest && player.playerWithRock)
                 {
-                    PlaceRock(player);
+                    PlaceRock();
                 }
 
             }
