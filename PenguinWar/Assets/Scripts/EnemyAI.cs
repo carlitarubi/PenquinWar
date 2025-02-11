@@ -93,8 +93,6 @@ public class EnemyAI : MonoBehaviour
     {
         if (targetNest == null || homeNest == null) return;
 
-        Debug.Log($"{gameObject.name} moviéndose hacia {destination}"); // <---- Agregar esto
-
 
         Vector3 direction = (destination - transform.position).normalized;
         transform.position = Vector3.MoveTowards(transform.position, destination, moveSpeed * Time.deltaTime);
@@ -129,27 +127,24 @@ public class EnemyAI : MonoBehaviour
         if (targetNest.activeRocks > 0 && hasRock == false)
         {
             targetNest.EnemyDestroysRock();
-            Debug.Log($"{gameObject.name} robó una piedra del nido {targetNest.name}");
-            hasRock = true;
-
-            if (homeNest.activeRocks > 0)
-            {
-                homeNest.rockPrefabs[homeNest.activeRocks - 1].SetActive(false);
-                homeNest.activeRocks--;
-            }
+            //Debug.Log($"{gameObject.name} robó una piedra del nido {targetNest.name}");
+            hasRock = true; 
         }
 
         SetState(EnemyState.ReturningHome);
     }
 
 
+
     private void AddRockToHomeNest()
     {
-        if (homeNest.activeRocks < homeNest.maxRocks && hasRock == true)
+        if (homeNest.activeRocks < homeNest.maxRocks && hasRock)
         {
             homeNest.rockPrefabs[homeNest.activeRocks].SetActive(true);
             homeNest.activeRocks++;
-            Debug.Log($"{gameObject.name} añadió una piedra a su nido {homeNest.name}");
+            //Debug.Log($"{gameObject.name} añadió una piedra a su nido {homeNest.name}");
+            hasRock = false;
         }
     }
+
 }
