@@ -9,7 +9,7 @@ public class EnemyAI : MonoBehaviour
     public float moveSpeed = 2f;
     public float waitTimeAfterStealing = 2f;
     private Vector2 moveInput; //Almacén del input del player
-    [SerializeField] bool isFacingRight;
+    [SerializeField] bool isFacingRight = true;
 
     private NestInteraction targetNest;
     private float stateTimer;
@@ -93,8 +93,8 @@ public class EnemyAI : MonoBehaviour
     {
         if (targetNest == null || homeNest == null) return;
 
+        Vector3 direction = destination - transform.position;
 
-        Vector3 direction = (destination - transform.position).normalized;
         transform.position = Vector3.MoveTowards(transform.position, destination, moveSpeed * Time.deltaTime);
 
         if (direction.x > 0 && !isFacingRight)
@@ -111,6 +111,7 @@ public class EnemyAI : MonoBehaviour
             SetState(nextState);
         }
     }
+
 
 
 

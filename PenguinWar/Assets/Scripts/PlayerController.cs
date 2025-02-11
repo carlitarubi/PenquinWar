@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
         {
             Flip();
         }
-        // Comprobación de la entrada para colocar una piedra
+        
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             TryPlaceRock();
@@ -46,19 +46,19 @@ public class PlayerController : MonoBehaviour
 
     private void TryPlaceRock()
     {
-        // Verificar si el jugador tiene una piedra y si su nido no está lleno
+
         if (playerWithRock && homeNest.activeRocks < homeNest.maxRocks)
         {
-            homeNest.rockPrefabs[homeNest.activeRocks].SetActive(true); // Activar una piedra en su nido
-            homeNest.activeRocks++; // Incrementar las piedras activas en el nido del jugador
-            playerWithRock = false; // El jugador ya no tiene la piedra
+            homeNest.rockPrefabs[homeNest.activeRocks].SetActive(true);
+            homeNest.activeRocks++;
+            playerWithRock = false;
         }
-        // Verificar si el jugador no tiene piedra para quitar una roca de su nido
+
         else if (!playerWithRock && homeNest.activeRocks > 0)
         {
-            homeNest.activeRocks--; // Reducir el número de piedras activas en su nido
-            homeNest.rockPrefabs[homeNest.activeRocks].SetActive(false); // Desactivar la última piedra en su nido
-            playerWithRock = true; // El jugador ahora tiene la piedra
+            homeNest.activeRocks--;
+            homeNest.rockPrefabs[homeNest.activeRocks].SetActive(false);
+            playerWithRock = true;
         }
     }
     
@@ -81,12 +81,12 @@ public class PlayerController : MonoBehaviour
 
     public void CollectRock()
     {
-        playerWithRock = true; // El jugador recoge una piedra
+        playerWithRock = true; 
     }
 
-    // Lógica para soltar la piedra (esto puede estar en otro sistema si lo deseas)
+    
     public void DropRock()
     {
-        playerWithRock = false; // El jugador suelta la piedra
+        playerWithRock = false; 
     }
 }
