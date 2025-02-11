@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
@@ -6,6 +8,8 @@ public class EnemyAI : MonoBehaviour
     public NestInteraction homeNest;
     public float moveSpeed = 2f;
     public float waitTimeAfterStealing = 2f;
+    private Vector2 moveInput; //Almacén del input del player
+    [SerializeField] bool isFacingRight;
 
     private NestInteraction targetNest;
     private float stateTimer;
@@ -72,7 +76,9 @@ public class EnemyAI : MonoBehaviour
 
     private void ChooseRandomNest()
     {
-        if (nests.Length == 0) return;
+        if (nests == null || nests.Length == 0) return;
+
+        if (nests.Length == 1 && nests[0] == homeNest) return;
 
         do
         {
@@ -82,9 +88,25 @@ public class EnemyAI : MonoBehaviour
         SetState(EnemyState.MovingToNest);
     }
 
+
     private void MoveToTarget(Vector3 destination, EnemyState nextState)
     {
+        if (targetNest == null || homeNest == null) return;
+
+        Debug.Log($"{gameObject.name} moviéndose hacia {destination}"); // <---- Agregar esto
+
+
+        Vector3 direction = (destination - transform.position).normalized;
         transform.position = Vector3.MoveTowards(transform.position, destination, moveSpeed * Time.deltaTime);
+
+        if (direction.x > 0 && !isFacingRight)
+        {
+            Flip();
+        }
+        else if (direction.x < 0 && isFacingRight)
+        {
+            Flip();
+        }
 
         if (Vector3.Distance(transform.position, destination) < 0.1f)
         {
@@ -92,21 +114,38 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+
+
+    void Flip()
+    {
+        Vector2 currentScale = transform.localScale;
+        currentScale.x *= -1;
+        transform.localScale = currentScale;
+        isFacingRight = !isFacingRight;
+    }
+
     private void StealRock()
     {
-        if (targetNest.activeRocks > 0)
+        if (targetNest.activeRocks > 0 && hasRock == false)
         {
             targetNest.EnemyDestroysRock();
             Debug.Log($"{gameObject.name} robó una piedra del nido {targetNest.name}");
-            hasRock = true; // Indicar que el enemigo lleva una piedra
+            hasRock = true;
+
+            if (homeNest.activeRocks > 0)
+            {
+                homeNest.rockPrefabs[homeNest.activeRocks - 1].SetActive(false);
+                homeNest.activeRocks--;
+            }
         }
 
         SetState(EnemyState.ReturningHome);
     }
 
+
     private void AddRockToHomeNest()
     {
-        if (homeNest.activeRocks < homeNest.maxRocks)
+        if (homeNest.activeRocks < homeNest.maxRocks && hasRock == true)
         {
             homeNest.rockPrefabs[homeNest.activeRocks].SetActive(true);
             homeNest.activeRocks++;
