@@ -5,12 +5,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] Rigidbody2D playerRb; // Referencia al rigidbody del player
-    [SerializeField] PlayerInput playerInput; // Referencia al gestor del input del jugador
-    [SerializeField] Animator playerAnim; // Referencia al animator para gestionar las transiciones de animación
+    [SerializeField] Rigidbody2D playerRb; // Referencia al Rigidbody del jugador
+    [SerializeField] PlayerInput playerInput; // Referencia al gestor de input
+    [SerializeField] Animator playerAnim; // Referencia al Animator
 
     [Header("Movement Parameters")]
-    private Vector2 moveInput; //Almacén del input del player
+    private Vector2 moveInput; // Almacena el input de movimiento
     public float speed;
     [SerializeField] bool isFacingRight;
     public bool playerWithRock;
@@ -22,12 +22,18 @@ public class PlayerController : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         playerAnim = GetComponent<Animator>();
         isFacingRight = true;
+
+        // Asegurar que el input está en el modo correcto
+        playerInput.SwitchCurrentActionMap("Gameplay");
+
+        // Vincular el input
+        playerInput.onActionTriggered += OnActionTriggered;
     }
 
     void Update()
     {
         playerRb.velocity = new Vector2(moveInput.x * speed, moveInput.y * speed);
-
+        playerAnim.SetFloat("Speed", Mathf.Abs(moveInput.magnitude));
 
         if (moveInput.x > 0 && !isFacingRight)
         {
@@ -37,33 +43,7 @@ public class PlayerController : MonoBehaviour
         {
             Flip();
         }
-        
-        //if (Input.GetKeyDown(KeyCode.LeftShift))
-        //{
-         //   TryPlaceRock();
-       // }
     }
-
-    //private void TryPlaceRock()
-    //{
-
-    //    if (playerWithRock && homeNest.activeRocks < homeNest.maxRocks)
-    //    {
-      //      homeNest.rockPrefabs[homeNest.activeRocks].SetActive(true);
-        //    homeNest.activeRocks++;
-          //  playerWithRock = false;
-        //}
-
-        //else if (!playerWithRock && homeNest.activeRocks > 0)
-        //{
-          //  homeNest.activeRocks--;
-            //homeNest.rockPrefabs[homeNest.activeRocks].SetActive(false);
-            //playerWithRock = true;
-       // }
-   // }
-    
-
-    
 
     void Flip()
     {
@@ -73,20 +53,26 @@ public class PlayerController : MonoBehaviour
         isFacingRight = !isFacingRight;
     }
 
-
     public void HandleMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
     }
 
-    public void CollectRock()
+    private void OnActionTriggered(InputAction.CallbackContext context)
     {
-        playerWithRock = true; 
+        if (context.action.name == "Move")
+        {
+            HandleMove(context);
+        }
     }
 
-    
+    public void CollectRock()
+    {
+        playerWithRock = true;
+    }
+
     public void DropRock()
     {
-        playerWithRock = false; 
+        playerWithRock = false;
     }
 }
