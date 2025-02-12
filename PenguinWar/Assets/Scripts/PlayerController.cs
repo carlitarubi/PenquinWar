@@ -30,6 +30,11 @@ public class PlayerController : MonoBehaviour
 
         // Vincular el input
         playerInput.onActionTriggered += OnActionTriggered;
+        if (playerInput == null)
+        {
+            Debug.LogError("PlayerInput is missing from the GameObject.");
+            return; // Si falta el PlayerInput, no sigas ejecutando el resto del código
+        }
     }
 
     void Update()
@@ -51,6 +56,11 @@ public class PlayerController : MonoBehaviour
             Attack();
             Debug.Log("funciona");
         }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Slide();
+            
+        }
 
     }
   
@@ -61,18 +71,31 @@ public class PlayerController : MonoBehaviour
 
 
 
-       // EnemyAI enemy = collision.GetComponent<EnemyAI>();
+        EnemyAI enemy = GetComponent<EnemyAI>();
 
-        //if (enemy != null && enemy.hasRock)
-        //{
-        //    Vector3 enemyPosition = enemy.transform.position;
-       //     Debug.Log("Enemy hit at position: " + enemyPosition);
-        //    enemy.hasRock = false;
-       // }
-       // else
-       // {
+        if (enemy != null && enemy.hasRock)
+        {
+            Vector3 enemyPosition = enemy.transform.position;
+            Debug.Log("Enemy hit at position: " + enemyPosition);
+            enemy.hasRock = false;
+            
+        }
+        else
+        {
             Debug.Log("No EnemyAI component found or enemy doesn't have a rock.");
-       // }
+        }
+    }
+    void Slide()
+    {
+        if (playerWithRock)
+        {
+            //playerAnim.SetTrigger("Dodge");
+        }
+        else
+        {
+            playerAnim.SetTrigger("Slide");
+            speed = 7;
+        }
     }
     void Flip()
     {
