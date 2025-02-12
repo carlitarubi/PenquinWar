@@ -888,7 +888,7 @@ MonoBehaviour:
   - {fileID: 1765368797}
   - {fileID: 840902081}
   homeNest: {fileID: 148675620}
-  moveSpeed: 2
+  moveSpeed: 1.6
   waitTimeAfterStealing: 2
   isFacingRight: 1
   hasRock: 0
@@ -2140,7 +2140,7 @@ MonoBehaviour:
   - {fileID: 148675620}
   - {fileID: 840902081}
   homeNest: {fileID: 1765368797}
-  moveSpeed: 2
+  moveSpeed: 1.6
   waitTimeAfterStealing: 2
   isFacingRight: 1
   hasRock: 0
@@ -4873,7 +4873,7 @@ MonoBehaviour:
   - {fileID: 148675620}
   - {fileID: 840902081}
   homeNest: {fileID: 306939083}
-  moveSpeed: 2
+  moveSpeed: 1.6
   waitTimeAfterStealing: 2
   isFacingRight: 1
   hasRock: 0
@@ -5233,7 +5233,7 @@ MonoBehaviour:
   - {fileID: 1765368797}
   - {fileID: 148675620}
   homeNest: {fileID: 840902081}
-  moveSpeed: 2
+  moveSpeed: 1.6
   waitTimeAfterStealing: 2
   isFacingRight: 1
   hasRock: 0
