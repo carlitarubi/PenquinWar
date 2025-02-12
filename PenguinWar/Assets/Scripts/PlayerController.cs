@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     public bool playerWithRock;
     public NestInteraction homeNest;
 
+
+
     private void Start()
     {
         playerRb = GetComponent<Rigidbody2D>();
@@ -43,8 +45,35 @@ public class PlayerController : MonoBehaviour
         {
             Flip();
         }
-    }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
 
+            Attack();
+            Debug.Log("funciona");
+        }
+
+    }
+  
+
+    void Attack()
+    {
+        playerAnim.SetTrigger("Hit");
+
+
+
+       // EnemyAI enemy = collision.GetComponent<EnemyAI>();
+
+        //if (enemy != null && enemy.hasRock)
+        //{
+        //    Vector3 enemyPosition = enemy.transform.position;
+       //     Debug.Log("Enemy hit at position: " + enemyPosition);
+        //    enemy.hasRock = false;
+       // }
+       // else
+       // {
+            Debug.Log("No EnemyAI component found or enemy doesn't have a rock.");
+       // }
+    }
     void Flip()
     {
         Vector2 currentScale = transform.localScale;

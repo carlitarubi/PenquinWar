@@ -891,6 +891,7 @@ MonoBehaviour:
   moveSpeed: 2
   waitTimeAfterStealing: 2
   isFacingRight: 1
+  hasRock: 0
 --- !u!212 &334760229
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2142,6 +2143,7 @@ MonoBehaviour:
   moveSpeed: 2
   waitTimeAfterStealing: 2
   isFacingRight: 1
+  hasRock: 0
 --- !u!212 &852645344
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2776,7 +2778,6 @@ MonoBehaviour:
   isFacingRight: 0
   playerWithRock: 0
   homeNest: {fileID: 941628648}
-  attackCooldown: 1
 --- !u!114 &975757419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3094,11 +3095,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: dd76e5df7566c3d49a4a38a7ee48fcbc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.32
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: dd76e5df7566c3d49a4a38a7ee48fcbc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.93
+      value: -4.25
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: dd76e5df7566c3d49a4a38a7ee48fcbc, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3277,7 +3278,6 @@ MonoBehaviour:
   isFacingRight: 0
   playerWithRock: 0
   homeNest: {fileID: 941628648}
-  attackCooldown: 1
 --- !u!114 &1046060488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4876,6 +4876,7 @@ MonoBehaviour:
   moveSpeed: 2
   waitTimeAfterStealing: 2
   isFacingRight: 1
+  hasRock: 0
 --- !u!212 &1782785577
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5235,6 +5236,7 @@ MonoBehaviour:
   moveSpeed: 2
   waitTimeAfterStealing: 2
   isFacingRight: 1
+  hasRock: 0
 --- !u!212 &1908309333
 SpriteRenderer:
   m_ObjectHideFlags: 0

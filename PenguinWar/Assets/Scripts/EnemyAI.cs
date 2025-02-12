@@ -13,7 +13,7 @@ public class EnemyAI : MonoBehaviour
 
     private NestInteraction targetNest;
     private float stateTimer;
-    private bool hasRock = false; // Indica si el enemigo lleva una piedra
+    public bool hasRock = false; // Indica si el enemigo lleva una piedra
     private EnemyState currentState = EnemyState.Idle;
 
     private enum EnemyState

@@ -7,8 +7,8 @@ public class NestInteraction : MonoBehaviour
     public GameObject[] rockPrefabs; // Array de piedras en el nido
     public int maxRocks = 8;
     public int activeRocks = 4;
-    private bool playerNearEnemyNest = false; 
-    private bool playerNearNest = false; 
+     
+   
     public bool isPlayerNest = false;
     public bool activeNest = false;
 
