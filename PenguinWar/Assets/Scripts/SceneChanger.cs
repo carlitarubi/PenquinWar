@@ -20,8 +20,7 @@ public class SceneChanger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            SceneManager.LoadScene(Escena);
-
+            int sceneIndex = SceneManager.GetSceneByName(Escena).buildIndex;
         }
     }
 }
