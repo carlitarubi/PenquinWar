@@ -138,9 +138,9 @@ public class EnemyAI : MonoBehaviour
     }
     public void ForceReturnToNest()
     {
-        if (hasRock)
+        if (hasRock && targetNest != null)
         {
-            homeNest.EnemyDestroysRock();
+            targetNest.RestoreRock();
             hasRock = false;
         }
 

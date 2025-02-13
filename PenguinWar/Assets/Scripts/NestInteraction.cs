@@ -57,7 +57,7 @@ public class NestInteraction : MonoBehaviour
         }
     }
 
-    private void PlaceRock()
+    public void PlaceRock()
     {
         if (activeRocks < maxRocks && player.playerWithRock)
         {
@@ -98,7 +98,15 @@ public class NestInteraction : MonoBehaviour
             }
         }
     }
-
+    public void RestoreRock()
+    {
+        if (activeRocks < maxRocks)
+        {
+            rockPrefabs[activeRocks].SetActive(true);
+            activeRocks++;
+            //Debug.Log("Piedra devuelta al nido.");
+        }
+    }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))

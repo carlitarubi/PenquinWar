@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
 
     void Attack()
     {
-        if(!canAttack) return;
+        if (!canAttack || playerWithRock == true) return;
 
         playerAnim.SetTrigger("Hit");
         canAttack = false;
@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
         if (!canSlide) return;
 
         canSlide = false;
-        playerAnim.SetTrigger("Slide");
+
 
         float originalSpeed = speed;
 
@@ -89,6 +89,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            playerAnim.SetTrigger("Slide");
             speed += 6f;
             StartCoroutine(ResetSpeed(originalSpeed, 0.5f));
         }
@@ -119,7 +120,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator AttackCooldown()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(0.5f);
         canAttack = true;
     }
     IEnumerator DisableHitbox()
