@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Inicio.unity
     guid: 82ec757727636994e93553708bd70d6a
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 5a9c434d9fc730b4c91b785d90ffab34
+  - enabled: 1
+    path: Assets/Scenes/Nando.unity
+    guid: 8ea243222d60f104ba2e1e5c80aaefa4
   m_configObjects: {}

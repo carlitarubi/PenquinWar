@@ -13,7 +13,10 @@ public class GameManager : MonoBehaviour
     public PlayerController player; 
     public NestInteraction playerNest; 
     public GameObject winPanel; 
-    public GameObject losePanel; 
+    public GameObject losePanel;
+    private bool gameEnded = false;
+
+    private bool isPaused = false;
 
     void Start()
     {
@@ -24,12 +27,15 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        timer -= Time.deltaTime; 
-        UpdateTimerUI();
-
-        if (timer <= 0f)
+        if (!gameEnded)
         {
-            CheckWinCondition();
+            timer -= Time.deltaTime;
+            UpdateTimerUI();
+
+            if (timer <= 0f)
+            {
+                CheckWinCondition();
+            }
         }
     }
 
@@ -41,7 +47,7 @@ public class GameManager : MonoBehaviour
 
     void CheckWinCondition()
     {
-        if (playerNest.activeRocks >= 5)
+        if (playerNest.activeRocks >= 1)
         {
             Win();
         }
@@ -53,23 +59,39 @@ public class GameManager : MonoBehaviour
 
     void Win()
     {
+        gameEnded = true;
+        PauseGame();
         winPanel.SetActive(true);
-        Invoke("GoToNextScene", 3f); 
+        Invoke("GoToNextScene", 2f);
     }
 
     void Lose()
     {
+        gameEnded = true;
+        PauseGame();
         losePanel.SetActive(true);
-        Invoke("RestartLevel", 3f);
+        Invoke("RestartLevel", 2f);
     }
 
     void GoToNextScene()
     {
-        SceneManager.LoadScene("NextScene");
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex + 1);
     }
 
     void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    void PauseGame()
+    {
+        Time.timeScale = 0f;
+        isPaused = true;
+    }
+    void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        isPaused = false;
     }
 }
