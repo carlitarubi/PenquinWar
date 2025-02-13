@@ -119,11 +119,12 @@ public class EnemyAI : MonoBehaviour
     {
         if (targetNest.activeRocks > 0 && hasRock == false)
         {
+
             targetNest.EnemyDestroysRock();
             //Debug.Log($"{gameObject.name} robó una piedra del nido {targetNest.name}");
             hasRock = true;
-        }
 
+        }
         SetState(EnemyState.ReturningHome);
     }
     private void AddRockToHomeNest()

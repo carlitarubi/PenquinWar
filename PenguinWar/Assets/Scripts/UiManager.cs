@@ -6,16 +6,44 @@ using UnityEngine.UI;
 
 public class UiManager : MonoBehaviour
 {
-    public TextMeshProUGUI stoneCounterText; 
-    public Image rockIcon; 
-    public PlayerController player; 
-    private void Update()
+    public static UiManager Instance { get; private set; }
+
+    public TextMeshProUGUI stoneCounterText;
+    public Image rockIcon;
+    public PlayerController player;
+
+    private void Awake()
     {
-        UpdateUI();
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
-    void UpdateUI()
+
+    private void Start()
     {
-        stoneCounterText.text = "Piedras en nido: " + player.homeNest.activeRocks;
+        UpdateUI(); 
+    }
+
+    public void UpdateUI()
+    {
+        if (player == null)
+        {
+            Debug.LogError("UiManager: Player no está asignado.");
+            return;
+        }
+
+        if (player.homeNest == null)
+        {
+            Debug.LogError("UiManager: homeNest del jugador es null.");
+            return;
+        }
+
+        stoneCounterText.text = $"Piedras en nido: {player.homeNest.activeRocks}";
         rockIcon.gameObject.SetActive(player.playerWithRock);
     }
 }

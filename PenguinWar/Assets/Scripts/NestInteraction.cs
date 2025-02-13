@@ -17,7 +17,11 @@ public class NestInteraction : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("Player")?.GetComponent<PlayerController>();
-        if (player == null) Debug.LogError("Player not found!");
+        if (player == null)
+        {
+            Debug.LogError("Player no encontrado en la escena.");
+        }
+
 
 
         for (int i = 0; i < rockPrefabs.Length; i++)
@@ -34,13 +38,13 @@ public class NestInteraction : MonoBehaviour
         //}
     }
 
-    private void HandleRockInteraction()
+    public void HandleRockInteraction(PlayerController player)
     {
         if (!isPlayerNest && !player.playerWithRock)
         {
             TakeRock();
         }
-        else if (isPlayerNest && player.playerWithRock)
+        else if (this == player.homeNest && player.playerWithRock)
         {
             PlaceRock();
         }
@@ -52,8 +56,8 @@ public class NestInteraction : MonoBehaviour
         {
             activeRocks--;
             rockPrefabs[activeRocks].SetActive(false);
-            player.playerWithRock = true;
-
+            player.CollectRock();
+            UiManager.Instance.UpdateUI();
         }
     }
 
@@ -63,7 +67,8 @@ public class NestInteraction : MonoBehaviour
         {
             rockPrefabs[activeRocks].SetActive(true);
             activeRocks++;
-            player.playerWithRock = false;
+            player.DropRock();
+            UiManager.Instance.UpdateUI();
 
         }
     }
@@ -83,21 +88,22 @@ public class NestInteraction : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             activeNest = true;
+            player.currentNest = this;
+        }
+    }
 
-            if (Input.GetKeyDown(KeyCode.LeftShift) && activeNest)
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            activeNest = false;
+            if (player.currentNest == this)
             {
-                if (!isPlayerNest && !player.playerWithRock)
-                {
-                    TakeRock();
-                }
-                if (isPlayerNest && player.playerWithRock)
-                {
-                    PlaceRock();
-                }
-
+                player.currentNest = null;
             }
         }
     }
+
     public void RestoreRock()
     {
         if (activeRocks < maxRocks)
@@ -105,13 +111,6 @@ public class NestInteraction : MonoBehaviour
             rockPrefabs[activeRocks].SetActive(true);
             activeRocks++;
             //Debug.Log("Piedra devuelta al nido.");
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            activeNest = false;
         }
     }
 }

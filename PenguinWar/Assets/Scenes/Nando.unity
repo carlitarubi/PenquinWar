@@ -666,6 +666,22 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.14218685
       objectReference: {fileID: 0}
+    - target: {fileID: 234570245851019529, guid: 0f84414c7b9e7d14e90b35e341b0ec8a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.11133243
+      objectReference: {fileID: 0}
+    - target: {fileID: 234570245851019529, guid: 0f84414c7b9e7d14e90b35e341b0ec8a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 234570245851019529, guid: 0f84414c7b9e7d14e90b35e341b0ec8a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.99378324
+      objectReference: {fileID: 0}
+    - target: {fileID: 234570245851019529, guid: 0f84414c7b9e7d14e90b35e341b0ec8a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -167.216
+      objectReference: {fileID: 0}
     - target: {fileID: 509909261071273824, guid: 0f84414c7b9e7d14e90b35e341b0ec8a, type: 3}
       propertyPath: m_Name
       value: inguin_evil

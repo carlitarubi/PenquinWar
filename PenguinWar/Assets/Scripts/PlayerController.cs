@@ -17,23 +17,26 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool isFacingRight;
     public bool playerWithRock;
     public NestInteraction homeNest;
+    public NestInteraction currentNest;
     public bool canSlide = true;
-    
+    private float originalSpeed;
+
     private void Start()
     {
+        originalSpeed = speed;
         playerRb = GetComponent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
         playerAnim = GetComponent<Animator>();
-        isFacingRight = true;
 
-        playerInput.SwitchCurrentActionMap("Gameplay");
 
-        playerInput.onActionTriggered += OnActionTriggered;
         if (playerInput == null)
         {
             Debug.LogError("PlayerInput is missing from the GameObject.");
             return;
         }
+        isFacingRight = true;
+        playerInput.SwitchCurrentActionMap("Gameplay");
+        playerInput.onActionTriggered += OnActionTriggered;
     }
     void Update()
     {
@@ -58,6 +61,10 @@ public class PlayerController : MonoBehaviour
         {
             Slide();
 
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            TryCollectRock();
         }
 
     }
@@ -156,14 +163,49 @@ public class PlayerController : MonoBehaviour
 
     public void CollectRock()
     {
-        playerWithRock = true;
-        speed *= 0.4f;
+        if (!playerWithRock)
+        {
+            playerWithRock = true;
+            if (UiManager.Instance != null)
+            {
+                UiManager.Instance.UpdateUI();
+            }
+            else
+            {
+                Debug.LogError("UiManager.Instance es null.");
+            }
+        }
     }
-
+    void TryCollectRock()
+    {
+        if (currentNest != null && currentNest.activeNest)
+        {
+            currentNest.HandleRockInteraction(this);
+            if (UiManager.Instance != null)
+            {
+                UiManager.Instance.UpdateUI();
+            }
+            else
+            {
+                Debug.LogError("UiManager.Instance es null.");
+            }
+        }
+    }
 
     public void DropRock()
     {
-        playerWithRock = false;
-        speed /= 0.4f;
+        if (playerWithRock) // Solo restaurar velocidad si tenía una roca antes
+        {
+            playerWithRock = false;
+            speed = originalSpeed; // Restaurar velocidad original
+            if (UiManager.Instance != null)
+            {
+                UiManager.Instance.UpdateUI();
+            }
+            else
+            {
+                Debug.LogError("UiManager.Instance es null.");
+            }
+        }
     }
 }

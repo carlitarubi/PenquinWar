@@ -22,15 +22,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Attack",
-                    "type": "Button",
-                    "id": "64520c70-4148-4b00-88ac-2e485db42d2b",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -190,45 +181,12 @@
                 },
                 {
                     "name": "",
-                    "id": "bd32ff05-7e16-4162-90fe-fff30d496136",
-                    "path": "<Keyboard>/q",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a895cd9e-0a97-40f8-8afa-0e82a83a3752",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a629f0d1-b7e2-4ac8-b958-20c690bf441c",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8085e3f2-9353-4273-ad27-638032ed913f",
+                    "id": "aa656153-4ec1-4804-a250-3fa8568cb091",
                     "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Attack",
+                    "action": "Swap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
