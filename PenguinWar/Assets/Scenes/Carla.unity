@@ -1643,7 +1643,7 @@ MonoBehaviour:
   - {fileID: 1765368797}
   - {fileID: 840902081}
   homeNest: {fileID: 148675620}
-  moveSpeed: 2
+  moveSpeed: 1.6
   waitTimeAfterStealing: 2
   isFacingRight: 1
   hasRock: 0
@@ -1729,7 +1729,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1740,7 +1740,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!70 &334760232
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1773,8 +1773,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.39999944}
-  m_Size: {x: 1.86, y: 1.86}
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1.86, y: 2.66}
   m_Direction: 0
 --- !u!1 &480164783
 GameObject:
@@ -3034,7 +3034,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6423783517240242909, guid: b31fe540f673f4140bfdd1b479928a1a, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6423783517240242909, guid: b31fe540f673f4140bfdd1b479928a1a, type: 3}
       propertyPath: m_audioClip
@@ -3772,7 +3772,6 @@ MonoBehaviour:
   isFacingRight: 0
   playerWithRock: 0
   homeNest: {fileID: 941628648}
-  currentNest: {fileID: 0}
   canSlide: 1
 --- !u!114 &975757419
 MonoBehaviour:
@@ -3823,6 +3822,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: b5224678-586d-42c3-94ea-ddfb4f69895c
     m_ActionName: UI/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 64520c70-4148-4b00-88ac-2e485db42d2b
+    m_ActionName: Gameplay/Attack[/Keyboard/q,/Mouse/rightButton,/Keyboard/e,/Keyboard/f]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -4114,11 +4117,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-<<<<<<< Updated upstream
   m_text: 60
-=======
-  m_text: 
->>>>>>> Stashed changes
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
@@ -5735,7 +5734,7 @@ MonoBehaviour:
   - {fileID: 148675620}
   - {fileID: 840902081}
   homeNest: {fileID: 306939083}
-  moveSpeed: 2
+  moveSpeed: 1.6
   waitTimeAfterStealing: 2
   isFacingRight: 1
   hasRock: 0
@@ -5838,8 +5837,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.3999998}
-  m_Size: {x: 1.86, y: 1.86}
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1.86, y: 2.66}
   m_Direction: 0
 --- !u!50 &1782785580
 Rigidbody2D:
@@ -5849,14 +5848,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1782785575}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -5866,7 +5865,6 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-<<<<<<< Updated upstream
   m_CollisionDetection: 0
   m_Constraints: 0
 --- !u!1 &1795302367
@@ -6003,10 +6001,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1795302367}
   m_CullTransparentMesh: 1
-=======
-  m_CollisionDetection: 1
-  m_Constraints: 4
->>>>>>> Stashed changes
 --- !u!1 &1817359498
 GameObject:
   m_ObjectHideFlags: 0
@@ -6434,7 +6428,7 @@ MonoBehaviour:
   - {fileID: 1765368797}
   - {fileID: 148675620}
   homeNest: {fileID: 840902081}
-  moveSpeed: 2
+  moveSpeed: 1.6
   waitTimeAfterStealing: 2
   isFacingRight: 1
   hasRock: 0
@@ -6537,8 +6531,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.39999896}
-  m_Size: {x: 1.86, y: 1.86}
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1.86, y: 2.66}
   m_Direction: 0
 --- !u!50 &1908309336
 Rigidbody2D:
@@ -6555,7 +6549,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -6566,7 +6560,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!1 &1914077045
 GameObject:
   m_ObjectHideFlags: 0
@@ -7708,17 +7702,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 546772730241254457, guid: 70dd3e82d29645042b80d279479c1e65, type: 3}
-      propertyPath: m_Size.y
-      value: 1.86
-      objectReference: {fileID: 0}
-    - target: {fileID: 546772730241254457, guid: 70dd3e82d29645042b80d279479c1e65, type: 3}
-      propertyPath: m_Offset.y
-      value: -0.3999998
-      objectReference: {fileID: 0}
     - target: {fileID: 1996318677233768482, guid: 70dd3e82d29645042b80d279479c1e65, type: 3}
       propertyPath: m_BodyType
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1996318677233768482, guid: 70dd3e82d29645042b80d279479c1e65, type: 3}
       propertyPath: m_Constraints
@@ -7772,10 +7758,6 @@ PrefabInstance:
       propertyPath: homeNest
       value: 
       objectReference: {fileID: 1765368797}
-    - target: {fileID: 6061612087400913946, guid: 70dd3e82d29645042b80d279479c1e65, type: 3}
-      propertyPath: moveSpeed
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 6061612087400913946, guid: 70dd3e82d29645042b80d279479c1e65, type: 3}
       propertyPath: nests.Array.data[0]
       value: 
