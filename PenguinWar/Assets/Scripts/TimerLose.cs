@@ -25,6 +25,10 @@ public class TimerLose : MonoBehaviour
        
         timerText.text = Mathf.Ceil(timer).ToString();
     }
+    void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }
 
 
