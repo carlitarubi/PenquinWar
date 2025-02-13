@@ -6,6 +6,7 @@ public class EnemyAI : MonoBehaviour
 {
     public NestInteraction[] nests;
     public NestInteraction homeNest;
+    [SerializeField] Animator enemyAnim; // Referencia al Animator
     public float moveSpeed = 2f;
     public float waitTimeAfterStealing = 2f;
     private Vector2 moveInput; //Almacén del input del player
@@ -28,10 +29,12 @@ public class EnemyAI : MonoBehaviour
     void Start()
     {
         SetState(EnemyState.Idle);
+        enemyAnim = GetComponent<Animator>();
     }
 
     void Update()
     {
+        enemyAnim.SetFloat("Speed",moveSpeed);
         switch (currentState)
         {
             case EnemyState.Idle:
@@ -115,11 +118,12 @@ public class EnemyAI : MonoBehaviour
         isFacingRight = !isFacingRight;
     }
 
+   
     private void StealRock()
     {
         if (targetNest.activeRocks > 0 && hasRock == false)
         {
-
+            enemyAnim.SetBool("hasRock", true);
             targetNest.EnemyDestroysRock();
             //Debug.Log($"{gameObject.name} robó una piedra del nido {targetNest.name}");
             hasRock = true;
@@ -135,6 +139,7 @@ public class EnemyAI : MonoBehaviour
             homeNest.activeRocks++;
             //Debug.Log($"{gameObject.name} añadió una piedra a su nido {homeNest.name}");
             hasRock = false;
+            enemyAnim.SetBool("hasRock", false);
         }
     }
     public void ForceReturnToNest()

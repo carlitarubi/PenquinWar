@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class TimerLose : MonoBehaviour
@@ -10,21 +9,28 @@ public class TimerLose : MonoBehaviour
     public float timeLimit = 5f;
     private float timer;
     public TextMeshProUGUI timerText;
+
     void Start()
     {
         timer = timeLimit;
     }
+
     void Update()
     {
         timer -= Time.deltaTime;
         UpdateTimerUI();
+
+        if (timer <= 0)
+        {
+            RestartLevel();
+        }
     }
 
     void UpdateTimerUI()
     {
-       
-        timerText.text = Mathf.Ceil(timer).ToString();
+        timerText.text = Mathf.Ceil(Mathf.Max(timer, 0)).ToString();
     }
+
     void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -32,4 +38,3 @@ public class TimerLose : MonoBehaviour
 }
 
 
-   

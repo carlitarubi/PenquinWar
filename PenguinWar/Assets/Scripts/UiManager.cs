@@ -43,7 +43,7 @@ public class UiManager : MonoBehaviour
             return;
         }
 
-        stoneCounterText.text = $"Piedras en nido: {player.homeNest.activeRocks}";
+        stoneCounterText.text = $"Your Rocks: {player.homeNest.activeRocks}";
         rockIcon.gameObject.SetActive(player.playerWithRock);
     }
 }

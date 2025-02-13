@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public float timeLimit = 120f; 
     private float timer;
     public TextMeshProUGUI timerText;
- 
+    
     public PlayerController player; 
     public NestInteraction playerNest; 
     public GameObject winPanel; 
@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
 
     void CheckWinCondition()
     {
-        if (playerNest.activeRocks >= 6)
+        if (playerNest.activeRocks >= 5)
         {
             Win();
         }
@@ -70,9 +70,9 @@ public class GameManager : MonoBehaviour
     void Lose()
     {
         gameEnded = true;
-        PauseGame();
+        //PauseGame();
         losePanel.SetActive(true);
-        Invoke("RestartLevel", 2f);
+        Invoke("RestartLevel", 5f);
     }
 
     void GoToNextScene()
