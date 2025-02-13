@@ -339,7 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd5d614edab87d64da23decef49c4375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeLimit: 2
+  timeLimit: 120
   timerText: {fileID: 1058729468}
   player: {fileID: 1046060487}
   playerNest: {fileID: 0}

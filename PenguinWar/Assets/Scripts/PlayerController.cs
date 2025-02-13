@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool isFacingRight;
     public bool playerWithRock;
     public NestInteraction homeNest;
-
+    public bool canSlide = true;
 
 
     private void Start()
@@ -25,15 +25,13 @@ public class PlayerController : MonoBehaviour
         playerAnim = GetComponent<Animator>();
         isFacingRight = true;
 
-        // Asegurar que el input está en el modo correcto
         playerInput.SwitchCurrentActionMap("Gameplay");
 
-        // Vincular el input
         playerInput.onActionTriggered += OnActionTriggered;
         if (playerInput == null)
         {
             Debug.LogError("PlayerInput is missing from the GameObject.");
-            return; // Si falta el PlayerInput, no sigas ejecutando el resto del código
+            return; 
         }
     }
 
@@ -87,15 +85,51 @@ public class PlayerController : MonoBehaviour
     }
     void Slide()
     {
+        if (!canSlide) return;
+
+        canSlide = false;
+        playerAnim.SetTrigger("Slide");
+
+        float originalSpeed = speed;
+
         if (playerWithRock)
         {
-            //playerAnim.SetTrigger("Dodge");
+            speed += 0.6f;
+            StartCoroutine(ResetSpeedEarly(originalSpeed, 4f));
         }
         else
         {
-            playerAnim.SetTrigger("Slide");
-            speed = 7;
+            speed += 6f; 
+            StartCoroutine(ResetSpeed(originalSpeed, 0.5f)); 
         }
+        StartCoroutine(SlideCooldown(1.5f));
+    }
+    IEnumerator ResetSpeed(float originalSpeed, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        speed = originalSpeed;
+    }
+    IEnumerator ResetSpeedEarly(float originalSpeed, float delay)
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < delay)
+        {
+            if (!playerWithRock)
+            {
+                speed = originalSpeed;
+                yield break;
+            }
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        speed = originalSpeed;
+    }
+
+    IEnumerator SlideCooldown(float cooldownTime)
+    {
+        yield return new WaitForSeconds(cooldownTime);
+        canSlide = true;
     }
     void Flip()
     {
@@ -121,10 +155,13 @@ public class PlayerController : MonoBehaviour
     public void CollectRock()
     {
         playerWithRock = true;
+        speed *= 0.4f; 
     }
+
 
     public void DropRock()
     {
         playerWithRock = false;
+        speed /= 0.4f; 
     }
 }
