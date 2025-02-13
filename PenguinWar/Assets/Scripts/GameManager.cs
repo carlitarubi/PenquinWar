@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
 {
     public float timeLimit = 120f; 
     private float timer;
-    public TextMeshProUGUI timerText; 
+    public TextMeshProUGUI timerText;
+ 
     public PlayerController player; 
     public NestInteraction playerNest; 
     public GameObject winPanel; 
@@ -34,6 +35,7 @@ public class GameManager : MonoBehaviour
 
             if (timer <= 0f)
             {
+                timerText.gameObject.SetActive(false);
                 CheckWinCondition();
             }
         }
@@ -47,7 +49,7 @@ public class GameManager : MonoBehaviour
 
     void CheckWinCondition()
     {
-        if (playerNest.activeRocks >= 1)
+        if (playerNest.activeRocks >= 6)
         {
             Win();
         }
