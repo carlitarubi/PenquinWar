@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Rigidbody2D playerRb; // Referencia al Rigidbody del jugador
     [SerializeField] PlayerInput playerInput; // Referencia al gestor de input
     [SerializeField] Animator playerAnim; // Referencia al Animator
+    [SerializeField] private GameObject attackHitbox;
+    private bool canAttack = true;
 
     [Header("Movement Parameters")]
     private Vector2 moveInput; // Almacena el input de movimiento
@@ -16,8 +18,7 @@ public class PlayerController : MonoBehaviour
     public bool playerWithRock;
     public NestInteraction homeNest;
     public bool canSlide = true;
-
-
+    
     private void Start()
     {
         playerRb = GetComponent<Rigidbody2D>();
@@ -31,10 +32,9 @@ public class PlayerController : MonoBehaviour
         if (playerInput == null)
         {
             Debug.LogError("PlayerInput is missing from the GameObject.");
-            return; 
+            return;
         }
     }
-
     void Update()
     {
         playerRb.velocity = new Vector2(moveInput.x * speed, moveInput.y * speed);
@@ -52,36 +52,26 @@ public class PlayerController : MonoBehaviour
         {
 
             Attack();
-            Debug.Log("funciona");
+            //Debug.Log("funciona");
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
             Slide();
-            
+
         }
 
     }
-  
+
 
     void Attack()
     {
+        if(!canAttack) return;
+
         playerAnim.SetTrigger("Hit");
-
-
-
-        EnemyAI enemy = GetComponent<EnemyAI>();
-
-        if (enemy != null && enemy.hasRock)
-        {
-            Vector3 enemyPosition = enemy.transform.position;
-            Debug.Log("Enemy hit at position: " + enemyPosition);
-            enemy.hasRock = false;
-            
-        }
-        else
-        {
-            Debug.Log("No EnemyAI component found or enemy doesn't have a rock.");
-        }
+        canAttack = false;
+        StartCoroutine(AttackCooldown());
+        attackHitbox.SetActive(true);
+        StartCoroutine(DisableHitbox());
     }
     void Slide()
     {
@@ -99,8 +89,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            speed += 6f; 
-            StartCoroutine(ResetSpeed(originalSpeed, 0.5f)); 
+            speed += 6f;
+            StartCoroutine(ResetSpeed(originalSpeed, 0.5f));
         }
         StartCoroutine(SlideCooldown(1.5f));
     }
@@ -126,6 +116,17 @@ public class PlayerController : MonoBehaviour
         speed = originalSpeed;
     }
 
+
+    IEnumerator AttackCooldown()
+    {
+        yield return new WaitForSeconds(4f);
+        canAttack = true;
+    }
+    IEnumerator DisableHitbox()
+    {
+        yield return new WaitForSeconds(0.2f);
+        attackHitbox.SetActive(false);
+    }
     IEnumerator SlideCooldown(float cooldownTime)
     {
         yield return new WaitForSeconds(cooldownTime);
@@ -155,13 +156,13 @@ public class PlayerController : MonoBehaviour
     public void CollectRock()
     {
         playerWithRock = true;
-        speed *= 0.4f; 
+        speed *= 0.4f;
     }
 
 
     public void DropRock()
     {
         playerWithRock = false;
-        speed /= 0.4f; 
+        speed /= 0.4f;
     }
 }

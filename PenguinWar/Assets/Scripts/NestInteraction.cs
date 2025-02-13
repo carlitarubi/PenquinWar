@@ -7,8 +7,8 @@ public class NestInteraction : MonoBehaviour
     public GameObject[] rockPrefabs; // Array de piedras en el nido
     public int maxRocks = 8;
     public int activeRocks = 4;
-     
-   
+
+
     public bool isPlayerNest = false;
     public bool activeNest = false;
 
@@ -19,7 +19,7 @@ public class NestInteraction : MonoBehaviour
         player = GameObject.FindWithTag("Player")?.GetComponent<PlayerController>();
         if (player == null) Debug.LogError("Player not found!");
 
-        
+
         for (int i = 0; i < rockPrefabs.Length; i++)
         {
             rockPrefabs[i].SetActive(i < activeRocks);
@@ -30,7 +30,7 @@ public class NestInteraction : MonoBehaviour
     {
         //if (playerNearNest && Input.GetKeyDown(KeyCode.LeftShift))
         //{
-          //  TakeRock();
+        //  TakeRock();
         //}
     }
 
@@ -45,33 +45,28 @@ public class NestInteraction : MonoBehaviour
             PlaceRock();
         }
     }
+
     private void TakeRock()
     {
-        
-        if (activeRocks > 0 && !player.playerWithRock) 
+        if (activeRocks > 0 && !player.playerWithRock)
         {
             activeRocks--;
             rockPrefabs[activeRocks].SetActive(false);
             player.playerWithRock = true;
-          
+
         }
-       
     }
 
     private void PlaceRock()
     {
-        if (activeRocks < maxRocks && player.playerWithRock) 
+        if (activeRocks < maxRocks && player.playerWithRock)
         {
             rockPrefabs[activeRocks].SetActive(true);
             activeRocks++;
             player.playerWithRock = false;
-           
-        }
-       
-    }
 
-    
-    
+        }
+    }
 
     // Función para que los enemigos destruyan piedras
     public void EnemyDestroysRock()

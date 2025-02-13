@@ -59,7 +59,6 @@ public class EnemyAI : MonoBehaviour
                 break;
         }
     }
-
     private void SetState(EnemyState newState)
     {
         currentState = newState;
@@ -73,7 +72,6 @@ public class EnemyAI : MonoBehaviour
             }
         }
     }
-
     private void ChooseRandomNest()
     {
         if (nests == null || nests.Length == 0) return;
@@ -87,8 +85,6 @@ public class EnemyAI : MonoBehaviour
 
         SetState(EnemyState.MovingToNest);
     }
-
-
     private void MoveToTarget(Vector3 destination, EnemyState nextState)
     {
         if (targetNest == null || homeNest == null) return;
@@ -111,10 +107,6 @@ public class EnemyAI : MonoBehaviour
             SetState(nextState);
         }
     }
-
-
-
-
     void Flip()
     {
         Vector2 currentScale = transform.localScale;
@@ -129,14 +121,11 @@ public class EnemyAI : MonoBehaviour
         {
             targetNest.EnemyDestroysRock();
             //Debug.Log($"{gameObject.name} robó una piedra del nido {targetNest.name}");
-            hasRock = true; 
+            hasRock = true;
         }
 
         SetState(EnemyState.ReturningHome);
     }
-
-
-
     private void AddRockToHomeNest()
     {
         if (homeNest.activeRocks < homeNest.maxRocks && hasRock)
@@ -147,5 +136,14 @@ public class EnemyAI : MonoBehaviour
             hasRock = false;
         }
     }
+    public void ForceReturnToNest()
+    {
+        if (hasRock)
+        {
+            homeNest.EnemyDestroysRock();
+            hasRock = false;
+        }
 
+        SetState(EnemyState.ReturningHome);
+    }
 }
