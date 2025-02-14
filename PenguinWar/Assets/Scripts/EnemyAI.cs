@@ -148,6 +148,7 @@ public class EnemyAI : MonoBehaviour
         {
             targetNest.RestoreRock();
             hasRock = false;
+            enemyAnim.SetBool("hasRock", false);
         }
 
         SetState(EnemyState.ReturningHome);

@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
         gameEnded = true;
         PauseGame();
         winPanel.SetActive(true);
-        Invoke("GoToNextScene", 2f);
+       
     }
 
     void Lose()
