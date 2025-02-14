@@ -1349,16 +1349,16 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: '1-Your objective is to build you''re nest, you''ll need to steal from
-    other penguins, your win condition is to have our nest more than 6 rocks when
-    the timeris out.
+    other penguins, your win condition is to have on your nest more than 6 rocks
+    when the timer is out.
 
 
-    2-You move with WASD, when you pick up a rock with the
-    "F" you''re movement is reduced, for that use the sprint well with the "E" key
+    2-You move with WASD, when you pick up a rock with
+    the "F" you''re movement is reduced, for that use the sprint well with the "Q"
+    key
 
 
-    3-Be
-    weary of your adversaries they pack a punch as you do with "Q"'
+    3-Be weary of your adversaries they pack a punch as you do with "E"'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}

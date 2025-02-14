@@ -166,6 +166,7 @@ public class PlayerController : MonoBehaviour
         if (!playerWithRock)
         {
             playerWithRock = true;
+            playerAnim.SetBool("HasRock", true);
             if (UiManager.Instance != null)
             {
                 UiManager.Instance.UpdateUI();
@@ -197,6 +198,7 @@ public class PlayerController : MonoBehaviour
         if (playerWithRock) // Solo restaurar velocidad si tenía una roca antes
         {
             playerWithRock = false;
+            playerAnim.SetBool("HasRock", false);
             speed = originalSpeed; // Restaurar velocidad original
             if (UiManager.Instance != null)
             {
